@@ -1,59 +1,612 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PHP_Laravel12_Restify
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## Project Description
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+PHP_Laravel12_Restify is a RESTful API boilerplate built with Laravel 12 and Laravel Restify.
+It demonstrates how to quickly create API endpoints for managing resources such as posts, with CRUD functionality (Create, Read, Update, Delete).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project is ideal for beginners or developers who want a ready-to-use API backend structure in Laravel 12.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Features
 
-## Laravel Sponsors
+- Repository pattern for API structure (via Restify).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Validation rules for API input fields.
 
-### Premium Partners
+- Authorization methods (can be customized per user).
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- JSON:API compliant responses with data and attributes.
 
-## Contributing
+- Easily extendable to add more models and repositories.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Optional integration with RestifyJS for front-end usage.
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## Technologies Used
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Laravel 12 – PHP web framework for building robust applications.
 
-## License
+2. Laravel Restify – A package for building REST APIs quickly and efficiently.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. MySQL – Relational database to store data.
+
+4. PHP 8.2+ – Latest stable version of PHP.
+
+5. Composer – Dependency manager for PHP packages.
+
+6. Postman / Browser – For testing API endpoints.
+
+---
+
+
+
+## Installation Steps
+
+
+---
+
+
+## STEP 1: Create Laravel 12 Project
+
+### Open terminal / CMD and run:
+
+```
+composer create-project laravel/laravel PHP_Laravel12_Restify "12.*"
+
+```
+
+### Go inside project:
+
+```
+cd PHP_Laravel12_Restify
+
+```
+
+#### Explanation:
+
+Installs a fresh Laravel 12 project and navigates into the project folder.
+
+
+
+
+
+## STEP 2: Database Setup 
+
+### Open .env and set:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel12_restify
+DB_USERNAME=root
+DB_PASSWORD=
+
+```
+
+### Create database in MySQL / phpMyAdmin:
+
+```
+Database name: laravel12_restify
+
+```
+
+### Run migration:
+
+```
+php artisan migrate
+
+```
+
+
+
+#### Explanation:
+
+This connects your Laravel app to MySQL to store any future data.
+
+
+
+
+
+## STEP 3: Install Laravel Restify Package
+
+### Run command:
+
+```
+composer require binaryk/laravel-restify
+
+```
+
+#### Explanation:
+
+Installs the Restify package, which simplifies building RESTful APIs in Laravel.
+
+
+
+
+
+## STEP 4: Setup Restify
+
+### Run command:
+
+```
+php artisan restify:setup
+
+```
+
+### This will create:
+
+```
+config/restify.php
+
+app/Restify/
+
+```
+
+#### Explanation:
+
+Generates the Restify configuration file and repository folder structure for your API resources.
+
+
+
+
+
+## STEP 5: Create Model and Migration
+
+### Run:
+
+```
+php artisan make:model Post -m
+
+```
+
+### Edit Migration File
+
+#### Open: database/migrations/xxxx_create_posts_table.php
+
+```
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('content');
+            $table->timestamp('published_at')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
+```
+
+
+### Run migration:
+
+```
+php artisan migrate
+
+```
+
+#### Explanation:
+
+Creates the Post model and database table with fields title, content, published_at, and timestamps.
+
+
+
+
+
+## STEP 6: Create Restify Repository
+
+### Run command:
+
+```
+php artisan restify:repository PostRepository --all
+
+```
+
+### This creates:
+
+```
+app/Restify/PostRepository.php
+
+```
+
+#### Explanation:
+
+Generates a repository that connects the Post model to Restify, enabling CRUD operations via API.
+
+
+
+
+
+## STEP 7: Configure Repository
+
+### Open: app/Restify/PostRepository.php
+
+#### Replace with:
+
+```
+<?php
+
+namespace App\Restify;
+
+use App\Models\Post;
+use Illuminate\Http\Request;
+use Binaryk\LaravelRestify\Repositories\Repository;
+use Binaryk\LaravelRestify\Fields\Field;
+
+class PostRepository extends Repository
+{
+    public static string $model = Post::class;
+
+    public function fields(Request $request): array
+    {
+        return [
+
+            Field::make('id')->readonly(),
+
+            Field::make('title')
+                ->rules('required')
+                ->sortable()
+                ->searchable(),
+
+            Field::make('content')
+                ->rules('required'),
+
+            Field::make('published_at'),
+
+        ];
+    }
+
+    public static function authorizedToStore(Request $request): bool
+    {
+        return true;
+    }
+
+    public function authorizedToUpdate(Request $request): bool
+    {
+        return true;
+    }
+
+    public function authorizedToDelete(Request $request): bool
+    {
+        return true;
+    }
+}
+
+```
+
+#### Explanation:
+
+Defines which fields are available in the API, their validation rules, and authorizations for CRUD operations.
+
+
+
+
+
+## STEP 8: Edit Model
+
+### Open: App/Models/Post.php
+
+```
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+
+    protected $fillable = [
+        'title',
+        'content',
+        'published_at',
+    ];
+
+}
+
+```
+
+#### Explanation:
+
+Sets the $fillable fields so Laravel can mass assign values when creating or updating posts.
+
+
+
+
+## STEP 9: config/restify.php (Laravel 12 working)
+
+### File: config/restify.php
+
+```
+<?php
+
+use Binaryk\LaravelRestify\Repositories\ActionLogRepository;
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Auth Configuration
+    |--------------------------------------------------------------------------
+    */
+
+    'auth' => [
+
+        'table' => 'users',
+
+        'provider' => 'sanctum',
+
+        'frontend_app_url' => env('FRONTEND_APP_URL', env('APP_URL')),
+
+        'password_reset_url' => env('FRONTEND_APP_URL').'/password/reset?token={token}&email={email}',
+
+        'user_verify_url' => env('FRONTEND_APP_URL').'/verify/{id}/{emailHash}',
+
+        'user_model' => \App\Models\User::class,
+
+        'token_ttl' => null,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | RestifyJS
+    |--------------------------------------------------------------------------
+    */
+
+    'restifyjs' => [
+
+        'token' => env('RESTIFYJS_TOKEN', 'testing'),
+
+        'api_url' => env('API_URL', env('APP_URL')),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base Route
+    |--------------------------------------------------------------------------
+    */
+
+    'base' => '/api/restify',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Middleware
+    |--------------------------------------------------------------------------
+    | IMPORTANT: Empty to avoid 403 error
+    */
+
+    'middleware' => [
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logs
+    |--------------------------------------------------------------------------
+    */
+
+    'logs' => [
+
+        'repository' => ActionLogRepository::class,
+
+        'enable' => true,
+
+        'all' => false,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Search
+    |--------------------------------------------------------------------------
+    */
+
+    'search' => [
+
+        'case_sensitive' => false,
+
+        'use_joins_for_belongs_to' => false,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Register Repositories HERE (IMPORTANT)
+    |--------------------------------------------------------------------------
+    */
+
+    'repositories' => [
+
+        'collectors' => [
+
+            App\Restify\PostRepository::class,
+
+        ],
+
+        'serialize_index_meta' => false,
+
+        'serialize_show_meta' => true,
+
+        'cache' => [
+
+            'enabled' => false,
+
+            'ttl' => 300,
+
+            'store' => null,
+
+            'skip_authenticated' => false,
+
+            'enable_in_tests' => false,
+
+            'tags' => ['restify'],
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache
+    |--------------------------------------------------------------------------
+    */
+
+    'cache' => [
+
+        'policies' => [
+
+            'enabled' => false,
+
+            'ttl' => 300,
+        ],
+    ],
+
+];
+
+```
+
+#### Explanation:
+
+Configures Restify settings like authentication, base API route, repositories, caching, and logs.
+
+
+
+
+
+
+## STEP 10: Start Server
+
+### Run:
+
+```
+php artisan serve
+
+```
+
+#### Explanation:
+
+Starts the Laravel development server so you can test your API in browser or Postman.
+
+
+
+
+## STEP 11: Test API in Browser or Postman
+
+
+### Create Post
+
+1. Method: POST
+
+2. URL:
+
+```
+http://127.0.0.1:8000/api/restify/posts
+
+```
+
+3. Body:
+
+```
+{
+    "title": "First Post",
+    "content": "This is first post",
+    "published_at": "2026-01-01"
+}
+
+```
+
+#### Output:
+
+
+<img width="1428" height="900" alt="Screenshot 2026-03-02 121111" src="https://github.com/user-attachments/assets/cf306e8d-e12e-4b9a-a185-41c8e5f477a2" />
+
+
+
+### Get All Posts
+
+1. Method: GET
+
+2. URL:
+
+```
+http://127.0.0.1:8000/api/restify/posts
+
+```
+
+#### Output:
+
+
+<img width="1431" height="893" alt="Screenshot 2026-03-02 121213" src="https://github.com/user-attachments/assets/b7468bbb-5507-4805-9a41-4b06044c6c5b" />
+
+
+
+
+### Get Single Post
+
+1. Method: GET
+
+2. URL:
+
+```
+http://127.0.0.1:8000/api/restify/posts/1
+
+```
+
+#### Output:
+
+
+<img width="1435" height="931" alt="Screenshot 2026-03-02 121237" src="https://github.com/user-attachments/assets/7ef252a7-6f41-4280-b638-cb18d3f7eaf9" />
+
+
+
+
+
+
+
+---
+
+# Project Folder Structure:
+
+```
+PHP_Laravel12_Restify
+│
+├── app
+│   ├── Models
+│   │    └── Post.php          # Eloquent model
+│   │
+│   └── Restify
+│        └── PostRepository.php # Restify repository for API
+│
+├── config
+│   └── restify.php             # Restify configuration
+│
+├── database
+│   └── migrations              # Table migrations
+│
+├── routes                      # Route files (web.php, api.php)
+│
+└── vendor                      # Composer dependencies
+
+```
