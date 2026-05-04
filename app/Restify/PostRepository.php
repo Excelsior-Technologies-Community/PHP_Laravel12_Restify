@@ -18,16 +18,33 @@ class PostRepository extends Repository
             Field::make('id')->readonly(),
 
             Field::make('title')
-                ->rules('required')
+                ->rules('required', 'max:255')
                 ->sortable()
                 ->searchable(),
 
             Field::make('content')
-                ->rules('required'),
+                ->rules('required', 'min:10')
+                ->searchable(),
 
-            Field::make('published_at'),
+            Field::make('status')
+                ->rules('required', 'in:draft,published')
+                ->sortable(),
 
+            Field::make('published_at')
+                ->sortable(),
         ];
+    }
+
+    /**
+     *  THIS FIXES STATUS FILTER
+     */
+    public static function indexQuery(Request $request, $query)
+    {
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        return $query;
     }
 
     public static function authorizedToStore(Request $request): bool
