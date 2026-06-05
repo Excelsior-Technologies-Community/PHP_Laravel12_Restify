@@ -8,21 +8,21 @@
             <p class="text-gray-600 mt-1">Update your post content</p>
         </div>
 
-        <form action="{{ route('posts.update', $post) }}" method="POST" class="p-6">
+        <form action="{{ route('posts.update', $post) }}" method="POST" id="edit-form" class="p-6">
             @csrf
             @method('PUT')
 
             <div class="mb-6">
                 <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
                 <input type="text" name="title" id="title" value="{{ old('title', $post->title) }}" 
-                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                        placeholder="Enter post title" required>
             </div>
 
             <div class="mb-6">
                 <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
                 <textarea name="content" id="content" rows="10" 
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                           placeholder="Write your post content here..." required>{{ old('content', $post->content) }}</textarea>
             </div>
 
@@ -51,4 +51,22 @@
         </form>
     </div>
 </div>
+
+<script>
+    const contentArea = document.getElementById('content');
+    const postId = "{{ $post->id }}";
+
+    contentArea.addEventListener('input', () => {
+        localStorage.setItem('draft_' + postId, contentArea.value);
+    });
+
+    window.onload = () => {
+        const savedDraft = localStorage.getItem('draft_' + postId);
+        if (savedDraft) contentArea.value = savedDraft;
+    };
+
+    document.getElementById('edit-form').addEventListener('submit', () => {
+        localStorage.removeItem('draft_' + postId);
+    });
+</script>
 @endsection
