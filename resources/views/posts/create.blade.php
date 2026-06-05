@@ -8,7 +8,7 @@
             <p class="text-gray-600 mt-1">Write your thoughts and ideas</p>
         </div>
 
-        <form action="{{ route('posts.store') }}" method="POST" class="p-6">
+        <form action="{{ route('posts.store') }}" method="POST" id="post-form" class="p-6">
             @csrf
 
             <div class="mb-6">
@@ -50,4 +50,24 @@
         </form>
     </div>
 </div>
+
+<script>
+    const contentTextarea = document.getElementById('content');
+    const postForm = document.getElementById('post-form');
+
+    window.addEventListener('load', () => {
+        const savedContent = localStorage.getItem('post_content_draft');
+        if (savedContent) {
+            contentTextarea.value = savedContent;
+        }
+    });
+
+    contentTextarea.addEventListener('input', () => {
+        localStorage.setItem('post_content_draft', contentTextarea.value);
+    });
+
+    postForm.addEventListener('submit', () => {
+        localStorage.removeItem('post_content_draft');
+    });
+</script>
 @endsection
